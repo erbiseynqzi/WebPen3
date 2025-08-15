@@ -16,9 +16,14 @@ curl -sL https://raw.githubusercontent.com/erbiseynqzi/WebPen3/main/install.sh |
 ```bash
 git clone https://github.com/erbiseynqzi/WebPen3.git
 cd WebPen3
-chmod +x install.sh
+chmod +x install.sh webpen3.sh
 ./install.sh
 ```
+
+> **Notes:**  
+> - `chmod +x` ensures the scripts are executable.  
+> - The installer automatically updates your `PATH` for the current session, so you can run `webpen3` immediately.  
+> - PATH is also added to `.bashrc` for future terminal sessions.
 
 ---
 
@@ -27,9 +32,8 @@ After installation, run the tool with:
 ```bash
 webpen3
 ```
-Or, if running from the local folder:
+Or, if running from the local folder without installation:
 ```bash
-chmod +x webpen3.sh
 ./webpen3.sh
 ```
 The tool will ask for:
