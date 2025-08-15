@@ -3,27 +3,29 @@ set -e
 
 TOOL_NAME="WebPen3"
 INSTALL_DIR="$HOME/WebPen3"
-TOOL_SCRIPT="webpen3" # artıq .sh yazmırıq
+TOOL_SCRIPT="webpen3" # without .sh
 WORDLIST_DIR="$INSTALL_DIR/wordlists/SecLists"
 
-echo "[*] $TOOL_NAME quraşdırılır..."
+echo "[*] $TOOL_NAME is being installed..."
 
-# Qovluq yarat və skripti kopyala
+# Create folder and copy the main script
 mkdir -p "$INSTALL_DIR"
 cp -r webpen3.sh "$INSTALL_DIR/$TOOL_SCRIPT"
 
-# İcazə ver icra üçün
+# Make it executable
 chmod +x "$INSTALL_DIR/$TOOL_SCRIPT"
 
-# PATH-ə əlavə et (əgər yoxdursa)
+# Add to PATH immediately for current session
+export PATH="$INSTALL_DIR:$PATH"
+
+# Add to .bashrc if not already present
 if ! grep -q "$INSTALL_DIR" <<< "$PATH"; then
     echo "export PATH=\"$INSTALL_DIR:\$PATH\"" >> "$HOME/.bashrc"
-    export PATH="$INSTALL_DIR:$PATH"
 fi
 
-echo "[*] PATH yeniləndi. İndi sadəcə '$TOOL_SCRIPT' yazaraq işlədə bilərsən."
+echo "[*] PATH updated. You can now run '$TOOL_SCRIPT' directly."
 
-# SecLists yoxlaması
+# Check for SecLists
 SYSTEM_PATHS=(
     "/usr/share/wordlists/SecLists"
     "$HOME/seclists"
@@ -32,19 +34,19 @@ SYSTEM_PATHS=(
 SEC_LIST_FOUND=false
 for path in "${SYSTEM_PATHS[@]}"; do
     if [ -d "$path" ]; then
-        echo "[*] SecLists tapıldı: $path"
+        echo "[*] SecLists found: $path"
         SEC_LIST_FOUND=true
         WORDLIST_DIR="$path"
         break
     fi
 done
 
-# Əgər tapılmayıbsa, klonla
+# Clone SecLists if not found
 if [ "$SEC_LIST_FOUND" = false ]; then
-    echo "[*] SecLists tapılmadı. $WORDLIST_DIR qovluğuna klonlanır..."
+    echo "[*] SecLists not found. Cloning to $WORDLIST_DIR..."
     mkdir -p "$WORDLIST_DIR"
     git clone https://github.com/danielmiessler/SecLists.git "$WORDLIST_DIR"
 fi
 
-echo "[*] Quraşdırma tamamlandı!"
-echo "[*] Tool SecLists-i istifadə edəcək: $WORDLIST_DIR"
+echo "[*] Installation completed!"
+echo "[*] Tool will use SecLists from: $WORDLIST_DIR"
