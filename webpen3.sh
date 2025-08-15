@@ -1,5 +1,5 @@
 #!/bin/bash
-# WEBPEN3 - Web Pentest Automation Tool (Bash, Multi-threaded, Colorful UI)
+# WEBPEN3 - Web Pentest Automation Tool  (Bash, Multi-threaded, Colorful UI)
 # by erbiseynqzi (Turqay Memmedli)
 
 # --- Colors ---
